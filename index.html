@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: sans-serif; }
-
+ 
     #chat-btn {
       position: fixed; bottom: 24px; right: 24px;
       width: 60px; height: 60px; border-radius: 50%;
@@ -18,7 +18,7 @@
       align-items: center; justify-content: center;
       color: white;
     }
-
+ 
     #chat-window {
       position: fixed; bottom: 96px; right: 24px;
       width: 340px; max-height: 520px;
@@ -28,7 +28,7 @@
       overflow: hidden; z-index: 9999;
     }
     #chat-window.hidden { display: none; }
-
+ 
     #chat-header {
       background: #e85c1a; padding: 1rem;
       display: flex; align-items: center; gap: 0.7rem;
@@ -38,16 +38,16 @@
       background: rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
       font-weight: 900; font-size: 0.85rem; color: #fff;
-      text-align: center; line-height: 1.2;
     }
+    #chat-header-text { flex: 1; }
     #chat-header-text strong { display: block; color: #fff; font-size: 0.95rem; }
     #chat-header-text span { color: rgba(255,255,255,0.85); font-size: 0.72rem; }
     #close-btn {
-      margin-left: auto; background: rgba(255,255,255,0.2);
-      border: none; border-radius: 50%; width: 28px; height: 28px;
+      background: rgba(255,255,255,0.2); border: none;
+      border-radius: 50%; width: 28px; height: 28px;
       color: #fff; font-size: 1.1rem; cursor: pointer;
     }
-
+ 
     #messages {
       flex: 1; overflow-y: auto; padding: 1rem;
       display: flex; flex-direction: column; gap: 0.7rem;
@@ -60,7 +60,7 @@
     }
     .msg.bot { background: #fff; border-radius: 14px 14px 14px 4px; align-self: flex-start; color: #1a1a1a; }
     .msg.user { background: #e85c1a; border-radius: 14px 14px 4px 14px; align-self: flex-end; color: #fff; }
-
+ 
     #quick-buttons { display: flex; flex-direction: column; gap: 0.5rem; }
     .quick-btn {
       display: flex; align-items: center; justify-content: space-between;
@@ -69,7 +69,7 @@
       cursor: pointer; font-size: 0.87rem; color: #1a1a1a; width: 100%;
     }
     .quick-btn:hover { background: #ffe8d8; }
-
+ 
     #typing { display: none; gap: 5px; padding: 0.4rem 0; align-self: flex-start; }
     #typing span {
       width: 8px; height: 8px; border-radius: 50%;
@@ -79,7 +79,7 @@
     #typing span:nth-child(2) { animation-delay: 0.18s; }
     #typing span:nth-child(3) { animation-delay: 0.36s; }
     @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
-
+ 
     #input-area {
       padding: 0.75rem; border-top: 1px solid #eee;
       display: flex; gap: 0.5rem; background: #fff;
@@ -98,93 +98,98 @@
   </style>
 </head>
 <body>
-
+ 
 <button id="chat-btn" onclick="toggleChat()">💬</button>
-
+ 
 <div id="chat-window" class="hidden">
   <div id="chat-header">
     <div id="chat-logo">SBB</div>
     <div id="chat-header-text">
       <strong>Solid Bygg och Betong</strong>
-      <span>Hur kan vi hjälpa dig? 🏗️</span>
+      <span>Hur kan vi hjälpa dig?</span>
     </div>
-    <button id="close-btn" onclick="toggleChat()">×</button>
+    <button id="close-btn" onclick="toggleChat()">x</button>
   </div>
-
-  <div id="status">Laddar företagsinformation...</div>
-
+ 
+  <div id="status">Laddar information...</div>
+ 
   <div id="messages">
-    <div class="msg bot">Hej! 👋 Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>
+    <div class="msg bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>
     <div id="quick-buttons">
-      <button class="quick-btn" onclick="send('Vilka tjänster erbjuder ni?')">🔨 Tjänster <span>›</span></button>
-      <button class="quick-btn" onclick="send('Hur kontaktar jag er?')">📞 Kontakt <span>›</span></button>
-      <button class="quick-btn" onclick="send('Kan jag få en offert?')">📋 Offert <span>›</span></button>
-      <button class="quick-btn" onclick="send('Var är ni verksamma?')">📍 Orter <span>›</span></button>
+      <button class="quick-btn" onclick="send('Vilka tjänster erbjuder ni?')">Tjänster ›</button>
+      <button class="quick-btn" onclick="send('Hur kontaktar jag er?')">Kontakt ›</button>
+      <button class="quick-btn" onclick="send('Kan jag få en offert?')">Offert ›</button>
+      <button class="quick-btn" onclick="send('Var är ni verksamma?')">Orter ›</button>
     </div>
     <div id="typing"><span></span><span></span><span></span></div>
   </div>
-
+ 
   <div id="input-area">
-    <input id="user-input" placeholder="Skriv din fråga..." onkeydown="if(event.key==='Enter') send()"/>
-    <button id="send-btn" onclick="send()">➤</button>
+    <input id="user-input" type="text" placeholder="Skriv din fråga..." autocomplete="off"/>
+    <button id="send-btn">&#62;</button>
   </div>
 </div>
-
+ 
 <script>
-  let companyInfo = "";
-  let messages = [];
-  let loading = false;
-
+  var companyInfo = "";
+  var messages = [];
+  var loading = false;
+ 
+  document.getElementById("user-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") send();
+  });
+  document.getElementById("send-btn").addEventListener("click", function() { send(); });
+ 
   async function loadCompanyInfo() {
     try {
-      const res = await fetch("/api/fetch-company");
-      const data = await res.json();
+      var res = await fetch("/api/fetch-company");
+      var data = await res.json();
       if (data.content) {
         companyInfo = data.content;
-        document.getElementById("status").textContent = "✓ Redo att hjälpa dig!";
-        setTimeout(() => document.getElementById("status").style.display = "none", 3000);
+        document.getElementById("status").textContent = "Redo att hjälpa dig!";
+        setTimeout(function() { document.getElementById("status").style.display = "none"; }, 3000);
       }
     } catch(e) {
-      document.getElementById("status").textContent = "Ansluten";
+      document.getElementById("status").style.display = "none";
     }
   }
-
+ 
   function toggleChat() {
-    const w = document.getElementById("chat-window");
-    const btn = document.getElementById("chat-btn");
+    var w = document.getElementById("chat-window");
+    var btn = document.getElementById("chat-btn");
     w.classList.toggle("hidden");
-    btn.textContent = w.classList.contains("hidden") ? "💬" : "×";
+    btn.textContent = w.classList.contains("hidden") ? "💬" : "x";
   }
-
+ 
   function addMessage(text, role) {
-    const qb = document.getElementById("quick-buttons");
+    var qb = document.getElementById("quick-buttons");
     if (qb) qb.remove();
-    const div = document.createElement("div");
+    var div = document.createElement("div");
     div.className = "msg " + (role === "user" ? "user" : "bot");
     div.textContent = text;
-    const msgs = document.getElementById("messages");
+    var msgs = document.getElementById("messages");
     msgs.insertBefore(div, document.getElementById("typing"));
     msgs.scrollTop = msgs.scrollHeight;
   }
-
+ 
   async function send(text) {
-    const input = document.getElementById("user-input");
-    const msg = text || input.value.trim();
+    var input = document.getElementById("user-input");
+    var msg = text || input.value.trim();
     if (!msg || loading) return;
     input.value = "";
     loading = true;
-
+ 
     addMessage(msg, "user");
     messages.push({ role: "user", content: msg });
-
-    const typing = document.getElementById("typing");
+ 
+    var typing = document.getElementById("typing");
     typing.style.display = "flex";
-
+ 
     try {
-      const systemPrompt = "Du är en hjälpsam assistent för Solid Bygg och Betong, ett byggföretag i Sundsvall och Kramfors som specialiserar sig på betong- och byggarbeten, dränering och stenläggning. Svara alltid kort och professionellt." +
-        (companyInfo ? "\n\nHär är information från företagets hemsida:\n" + companyInfo : "");
-
-      const res = await fetch("/api/chat", {
+      var systemPrompt = "Du ar en hjalpsam assistent for Solid Bygg och Betong, ett byggforetag i Sundsvall och Kramfors som specialiserar sig pa betong- och byggarbeten, dranering och stenlaggning. Svara alltid kort och professionellt. Svara pa samma sprak som anvandaren skriver pa." +
+        (companyInfo ? " Har ar information fran foretagets hemsida: " + companyInfo : "");
+ 
+      var res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -194,24 +199,24 @@
           messages: messages
         })
       });
-
-      const data = await res.json();
+ 
+      var data = await res.json();
       typing.style.display = "none";
-
+ 
       if (data.error) {
         addMessage("Fel: " + data.error.message, "bot");
       } else {
-        const reply = data?.content?.[0]?.text || "Kunde inte svara just nu.";
+        var reply = (data && data.content && data.content[0] && data.content[0].text) ? data.content[0].text : "Kunde inte svara just nu.";
         addMessage(reply, "bot");
         messages.push({ role: "assistant", content: reply });
       }
     } catch(e) {
       typing.style.display = "none";
-      addMessage("Något gick fel. Försök igen!", "bot");
+      addMessage("Fel: " + e.message, "bot");
     }
     loading = false;
   }
-
+ 
   loadCompanyInfo();
 </script>
 </body>
