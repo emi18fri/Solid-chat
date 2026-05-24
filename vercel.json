@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "routes": [
-    { "src": "/api/fetch-company", "dest": "/API/fetch-company.js" },
-    { "src": "/api/chat", "dest": "/API/chat.js" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
-}
