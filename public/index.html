@@ -47,7 +47,7 @@ body{font-family:sans-serif}
   </div>
   <div id="status">Laddar information...</div>
   <div id="msgs">
-    <div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>
+    <div class="bot" id="welcome-msg">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>
     <div id="qbtns">
       <button class="qbtn" onclick="send('Vilka tjänster erbjuder ni?')">Tjänster ›</button>
       <button class="qbtn" onclick="send('Hur kontaktar jag er?')">Kontakt ›</button>
@@ -77,6 +77,13 @@ document.getElementById("send").addEventListener("click",function(){send();});
   m.innerHTML='<div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
   localStorage.removeItem("solidchat_history");
+}
+  function visaOppettider(){
+  var nu=new Date();
+  var dag=nu.getDay();
+  var timme=nu.getHours();
+  var oppet=(dag>=1&&dag<=5&&timme>=7&&timme<17);
+  return oppet ? "Vi är öppna just nu! Ringa oss på [Växel: 060-30 500]." : "Vi är stängda just nu. Öppettider: Mån-Fre 07:00-17:00.";
 }
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
@@ -114,6 +121,8 @@ async function send(text){
   }
   loading=false;
 }
+  loadCompanyInfo();
+document.getElementById("welcome-msg").textContent="Hej! Välkommen till Solid Bygg och Betong. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
 </script>
 </body>
 </html>
