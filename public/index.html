@@ -53,6 +53,7 @@ body{font-family:sans-serif}
       <button class="qbtn" onclick="send('Hur kontaktar jag er?')">Kontakt ›</button>
       <button class="qbtn" onclick="send('Kan jag få en offert?')">Offert ›</button>
       <button class="qbtn" onclick="send('Var är ni verksamma?')">Orter ›</button>
+      <button class="qbtn" onclick="visaOffertFormular()" style="background:#9e9e9e;color:#fff;border:none;">📋 Begär offert</button>
     </div>
     <div id="typing"><span></span><span></span><span></span></div>
   </div>
@@ -77,6 +78,29 @@ document.getElementById("send").addEventListener("click",function(){send();});
   m.innerHTML='<div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
   localStorage.removeItem("solidchat_history");
+}
+  function visaOffertFormular(){
+  var qb=document.getElementById("qbtns");if(qb)qb.remove();
+  var d=document.createElement("div");
+  d.className="bot";
+  d.style.width="100%";
+  d.innerHTML='<strong>Begär offert</strong><br><br>'+
+    '<input id="of-namn" placeholder="Namn" style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;"><br>'+
+    '<input id="of-tel" placeholder="Telefon" style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;"><br>'+
+    '<input id="of-mail" placeholder="E-post" style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;"><br>'+
+    '<textarea id="of-msg" placeholder="Beskriv ditt projekt..." style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;height:80px;"></textarea><br>'+
+    '<button onclick="skickaOffert()" style="background:#9e9e9e;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;width:100%;">Skicka offertförfrågan</button>';
+  var m=document.getElementById("msgs");
+  m.insertBefore(d,document.getElementById("typing"));
+  m.scrollTop=m.scrollHeight;
+}
+function skickaOffert(){
+  var namn=document.getElementById("of-namn").value;
+  var tel=document.getElementById("of-tel").value;
+  var mail=document.getElementById("of-mail").value;
+  var msg=document.getElementById("of-msg").value;
+  if(!namn||!tel||!msg){addMsg("Fyll i namn, telefon och projektbeskrivning!","bot");return;}
+  send("Offertförfrågan från "+namn+" ("+tel+", "+mail+"): "+msg);
 }
   function visaOppettider(){
   var nu=new Date();
