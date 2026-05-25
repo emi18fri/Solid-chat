@@ -25,33 +25,23 @@ function stripHtml(html) {
 }
 const MANUELL_INFO = `
 Kontakt Solid Bygg och Betong:
-Telefon: [Växel: 060-30 500
-          Rickard Berglund
-Delägare / Ansvarig betong
-Telefon: 076 – 061 21 24
-Douglas Berkö
-Delägare / Ekonomiansvarig
-
-Telefon: 070 – 664 91 40
-Fredrik Ölund
-Arbetsledare
-
-Telefon: 070 – 333 34 12]
+Telefon: [070-888 62 22]
         
-Email: [E-postadress: info@solidbyggochbetong.se]
-Adress: [Klökanvägen 12B
-863 41 Sundsvall]
+Email: [E-postadress: info@alviksbygg.se]
+Adress: [Fockvägen 17, 865 31 Alnö]
 `;
 const PAGES = [
-  "https://solidbyggochbetong.se/",
-  "https://solidbyggochbetong.se/byggarbeten/",
-  "https://solidbyggochbetong.se/betongarbeten/",
-  "https://solidbyggochbetong.se/dranering/",
-  "https://solidbyggochbetong.se/stenlaggning/",
-  "https://solidbyggochbetong.se/om-oss/",
-  "https://solidbyggochbetong.se/kontakt/",
-  "https://solidbyggochbetong.se/sundsvall/",
-  "https://solidbyggochbetong.se/kramfors/",
+  "https://alviksbygg.se/",
+  "https://alviksbygg.se/byggtjanster/",
+  "https://alviksbygg.se/isolering/",
+  "https://alviksbygg.se/markarbeten/",
+  "https://alviksbygg.se/tips-och-rad/",
+  "https://alviksbygg.se/om-oss/",
+  "https://alviksbygg.se/kontakta-oss/",
+  "https://alviksbygg.se/badrumsrenovering/",
+  "https://alviksbygg.se/koksrenovering/",
+  "https://alviksbygg.se/taklaggning/",
+  "https://alviksbygg.se/om-och-tillbyggnad/",
 ];
 
 let cachedInfo = null;
