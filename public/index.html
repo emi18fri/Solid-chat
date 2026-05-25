@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Solid Bygg och Betong</title>
+<title>Alviks Bygg</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:sans-serif}
-#btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#9e9e9e;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(232,92,26,0.4);z-index:9998;color:white}
+#btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#eab32a;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(232,92,26,0.4);z-index:9998;color:white}
 #win{position:fixed;bottom:96px;right:24px;width:340px;max-height:520px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.2);display:flex;flex-direction:column;overflow:hidden;z-index:9999}
 #win.hidden{display:none}
-#hdr{background:#9e9e9e;padding:1rem;display:flex;align-items:center;gap:.7rem}
+#hdr{background:#eab32a;padding:1rem;display:flex;align-items:center;gap:.7rem}
 #logo{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;color:#fff}
 #hdr-txt{flex:1}
 #hdr-txt strong{display:block;color:#fff;font-size:.95rem}
@@ -18,7 +18,7 @@ body{font-family:sans-serif}
 #close{background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:28px;height:28px;color:#fff;font-size:1.1rem;cursor:pointer}
 #msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;background:#f8f8f8}
 .bot{max-width:85%;padding:.65rem .9rem;font-size:.84rem;line-height:1.5;background:#fff;border-radius:14px 14px 14px 4px;align-self:flex-start;color:#1a1a1a;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
-.user{max-width:85%;padding:.65rem .9rem;font-size:.84rem;line-height:1.5;background:#9e9e9e;border-radius:14px 14px 4px 14px;align-self:flex-end;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.user{max-width:85%;padding:.65rem .9rem;font-size:.84rem;line-height:1.5;background:#eab32a;border-radius:14px 14px 4px 14px;align-self:flex-end;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
 #qbtns{display:flex;flex-direction:column;gap:.5rem}
 .qbtn{display:flex;align-items:center;justify-content:space-between;background:#fff5f0;border:1px solid #ffd5c0;border-radius:10px;padding:.7rem 1rem;cursor:pointer;font-size:.87rem;color:#1a1a1a;width:100%}
 .qbtn:hover{background:#ffe8d8}
@@ -29,7 +29,7 @@ body{font-family:sans-serif}
 @keyframes b{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
 #inp-area{padding:.75rem;border-top:1px solid #eee;display:flex;gap:.5rem;background:#fff}
 #inp{flex:1;border:1px solid #ddd;border-radius:20px;padding:.55rem 1rem;font-size:.85rem;outline:none;background:#f5f5f5;color:#333}
-#send{width:38px;height:38px;border-radius:50%;background:#e85c1a;border:none;color:#fff;font-size:1rem;cursor:pointer;flex-shrink:0}
+#send{width:38px;height:38px;border-radius:50%;background:#eab32a;border:none;color:#fff;font-size:1rem;cursor:pointer;flex-shrink:0}
 #status{font-size:.72rem;color:#999;padding:.3rem 1rem;background:#f8f8f8;text-align:center}
 </style>
 </head>
@@ -39,7 +39,7 @@ body{font-family:sans-serif}
   <div id="hdr">
     <div id="logo"><img src="https://solidbyggochbetong.se/wp-content/uploads/2024/09/solid-logofavicon.png" style="width:36px;height:36px;object-fit:contain;border-radius:50%;" alt="Solid"/></div>
     <div id="hdr-txt">
-      <strong>Solid Bygg och Betong</strong>
+      <strong>Alviks Bygg</strong>
       <span>Hur kan vi hjälpa dig?</span>
     </div>
     <button id="close" onclick="toggleChat()">x</button>
@@ -47,13 +47,13 @@ body{font-family:sans-serif}
   </div>
   <div id="status">Laddar information...</div>
   <div id="msgs">
-    <div class="bot" id="welcome-msg">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>
+    <div class="bot" id="welcome-msg">Hej! Välkommen till Alviks Bygg. Vad kan vi hjälpa dig med?</div>
     <div id="qbtns">
       <button class="qbtn" onclick="send('Vilka tjänster erbjuder ni?')">Tjänster ›</button>
       <button class="qbtn" onclick="send('Hur kontaktar jag er?')">Kontakt ›</button>
       <button class="qbtn" onclick="send('Kan jag få en offert?')">Offert ›</button>
       <button class="qbtn" onclick="send('Var är ni verksamma?')">Orter ›</button>
-      <button class="qbtn" onclick="visaOffertFormular()" style="background:#9e9e9e;color:#fff;border:none;">📋 Begär offert</button>
+      <button class="qbtn" onclick="visaOffertFormular()" style="background:#eab32a;color:#fff;border:none;">📋 Begär offert</button>
     </div>
     <div id="typing"><span></span><span></span><span></span></div>
   </div>
@@ -65,13 +65,15 @@ body{font-family:sans-serif}
 <script>
 var info="",loading=false;
   var vanligaFragor={
-  "telefon":"Vårt telefonnummer är [Växel: 060-30 500]. Ring oss gärna!",
-  "mail":"Vår e-post är [info@solidbyggochbetong.se]. Vi svarar inom 24 timmar!",
-  "öppettider":"Vi har öppet Mån-Fre 07:00-17:00.",
+  "telefon":"Vårt telefonnummer är [070-888 62 22]. Ring oss gärna!",
+  "mail":"Vår e-post är [info@alviksbygg.se]. Vi svarar inom 24 timmar!",
+  "öppettider":"Vi har öppet Mån-Fre 06:30-17:00.",
   "pris":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "offert":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "sundsvall":"Ja, vi är verksamma i Sundsvall!",
-  "kramfors":"Ja, vi är verksamma i Kramfors!",
+  "Gästrikland":"Ja, vi är verksamma i Gästrikland!",
+  "Jämtland/Härjedalen":"Ja, vi är verksamma i Jämtland/Härjedalen!",
+  "Västernorrland":"Ja, vi är verksamma i Västernorrland",  
   "betong":"Vi utför alla typer av betongarbeten. Tryck på 'Tjänster' för mer info!",
   "dränering":"Vi utför dräneringsarbeten. Kontakta oss för offert!",
   "stenläggning":"Vi lägger sten och plattor. Kontakta oss för offert!",
@@ -87,9 +89,9 @@ setInterval(function(){
 document.getElementById("send").addEventListener("click",function(){send();});
   function rensaChatt(){
   var m=document.getElementById("msgs");
-  m.innerHTML='<div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>';
+  m.innerHTML='<div class="bot">Hej! Välkommen till Alviks Bygg. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
-  localStorage.removeItem("solidchat_history");
+  localStorage.removeItem("Solidchatt_history");
 }
   function visaOffertFormular(){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
@@ -139,8 +141,8 @@ function skickaBedomning(stjarnor){
   var nu=new Date();
   var dag=nu.getDay();
   var timme=nu.getHours();
-  var oppet=(dag>=1&&dag<=5&&timme>=7&&timme<17);
-  return oppet ? "Vi är öppna just nu! Ringa oss på [Växel: 060-30 500]." : "Vi är stängda just nu. Öppettider: Mån-Fre 07:00-17:00.";
+  var oppet=(dag>=1&&dag<=5&&timme>=6.30&&timme<17);
+  return oppet ? "Vi är öppna just nu! Ringa oss på [070-888 62 22]." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
 }
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
@@ -190,7 +192,7 @@ for(var key in vanligaFragor){
   }
   loading=false;
 }
-document.getElementById("welcome-msg").textContent="Hej! Välkommen till Solid Bygg och Betong. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
+document.getElementById("welcome-msg").textContent="Hej! Välkommen till AlviksBygg. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
 </script>
 </body>
 </html>
