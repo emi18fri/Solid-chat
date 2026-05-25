@@ -63,6 +63,12 @@ body{font-family:sans-serif}
 <script>
 var info="",msgs=[],loading=false;
 document.getElementById("inp").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
+  var placeholders=["Skriv din fråga...","Write your question...","Qor su'aashaada...","Schreib deine Frage..."];
+var pi=0;
+setInterval(function(){
+  pi=(pi+1)%placeholders.length;
+  document.getElementById("inp").placeholder=placeholders[pi];
+},2000);
 document.getElementById("send").addEventListener("click",function(){send();});
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
