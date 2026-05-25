@@ -43,6 +43,7 @@ body{font-family:sans-serif}
       <span>Hur kan vi hjälpa dig?</span>
     </div>
     <button id="close" onclick="toggleChat()">x</button>
+<button onclick="rensaChatt()" style="background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:28px;height:28px;color:#fff;font-size:0.7rem;cursor:pointer;">🗑️</button>
   </div>
   <div id="status">Laddar information...</div>
   <div id="msgs">
@@ -70,6 +71,11 @@ setInterval(function(){
   document.getElementById("inp").placeholder=placeholders[pi];
 },2000);
 document.getElementById("send").addEventListener("click",function(){send();});
+  function rensaChatt(){
+  var m=document.getElementById("msgs");
+  m.innerHTML='<div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>';
+  msgs=[];
+}
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
