@@ -23,7 +23,25 @@ function stripHtml(html) {
     .replace(/\s{2,}/g, " ")
     .trim();
 }
+const MANUELL_INFO = `
+Kontakt Solid Bygg och Betong:
+Telefon: [Växel: 060-30 500
+          Rickard Berglund
+Delägare / Ansvarig betong
+Telefon: 076 – 061 21 24
+Douglas Berkö
+Delägare / Ekonomiansvarig
 
+Telefon: 070 – 664 91 40
+Fredrik Ölund
+Arbetsledare
+
+Telefon: 070 – 333 34 12]
+        
+Email: [E-postadress: info@solidbyggochbetong.se]
+Adress: [Klökanvägen 12B
+863 41 Sundsvall]
+`;
 const PAGES = [
   "https://solidbyggochbetong.se/",
   "https://solidbyggochbetong.se/byggarbeten/",
@@ -55,7 +73,7 @@ module.exports = async (req, res) => {
         all += "\n\n" + stripHtml(html).slice(0, 2000);
       } catch(e) {}
     }
-    cachedInfo = all.slice(0, 15000);
+    cachedInfo = MANUELL_INFO + all.slice(0, 15000);
     cacheTime = Date.now();
     res.json({ content: cachedInfo });
   } catch(e) {
