@@ -64,6 +64,18 @@ body{font-family:sans-serif}
 </div>
 <script>
 var info="",loading=false;
+  var vanligaFragor={
+  "telefon":"Vårt telefonnummer är [Växel: 060-30 500]. Ring oss gärna!",
+  "mail":"Vår e-post är [info@solidbyggochbetong.se]. Vi svarar inom 24 timmar!",
+  "öppettider":"Vi har öppet Mån-Fre 07:00-17:00.",
+  "pris":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
+  "offert":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
+  "sundsvall":"Ja, vi är verksamma i Sundsvall!",
+  "kramfors":"Ja, vi är verksamma i Kramfors!",
+  "betong":"Vi utför alla typer av betongarbeten. Tryck på 'Tjänster' för mer info!",
+  "dränering":"Vi utför dräneringsarbeten. Kontakta oss för offert!",
+  "stenläggning":"Vi lägger sten och plattor. Kontakta oss för offert!",
+};
 var msgs=JSON.parse(localStorage.getItem("solidchat_history")||"[]");
 document.getElementById("inp").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
 var placeholders=["Skriv din fråga...","Write your question...","Qor su'aashaada...","Schreib deine Frage..."];
@@ -151,6 +163,15 @@ function addMsg(text,role){
 async function send(text){
   var inp=document.getElementById("inp");
   var msg=text||inp.value.trim();if(!msg||loading)return;
+  var msgLower=msg.toLowerCase();
+for(var key in vanligaFragor){
+  if(msgLower.includes(key)){
+    inp.value="";
+    addMsg(msg,"user");
+    addMsg(vanligaFragor[key],"bot");
+    return;
+  }
+}
   inp.value="";loading=true;
   addMsg(msg,"user");msgs.push({role:"user",content:msg});
   localStorage.setItem("solidchat_history",JSON.stringify(msgs));
