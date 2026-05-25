@@ -102,6 +102,27 @@ function skickaOffert(){
   if(!namn||!tel||!msg){addMsg("Fyll i namn, telefon och projektbeskrivning!","bot");return;}
   send("Offertförfrågan från "+namn+" ("+tel+", "+mail+"): "+msg);
 }
+  function visaBedomning(){
+  var d=document.createElement("div");
+  d.className="bot";
+  d.style.width="100%";
+  d.innerHTML='<strong>Hur nöjd var du med hjälpen?</strong><br><br>'+
+    '<div style="font-size:1.8rem;cursor:pointer;">'+
+    '<span onclick="skickaBedomning(1)">⭐</span>'+
+    '<span onclick="skickaBedomning(2)">⭐</span>'+
+    '<span onclick="skickaBedomning(3)">⭐</span>'+
+    '<span onclick="skickaBedomning(4)">⭐</span>'+
+    '<span onclick="skickaBedomning(5)">⭐</span>'+
+    '</div>';
+  var m=document.getElementById("msgs");
+  m.insertBefore(d,document.getElementById("typing"));
+  m.scrollTop=m.scrollHeight;
+}
+
+function skickaBedomning(stjarnor){
+  var text="★".repeat(stjarnor)+"☆".repeat(5-stjarnor);
+  addMsg("Tack för din bedömning: "+text,"bot");
+}
   function visaOppettider(){
   var nu=new Date();
   var dag=nu.getDay();
@@ -115,6 +136,9 @@ fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d)
 }).catch(function(){document.getElementById("status").style.display="none";});
 function toggleChat(){
   var w=document.getElementById("win"),b=document.getElementById("btn");
+  if(!w.classList.contains("hidden")&&msgs.length>0){
+    visaBedomning();
+  }
   w.classList.toggle("hidden");
   b.textContent=w.classList.contains("hidden")?"💬":"x";
 }
