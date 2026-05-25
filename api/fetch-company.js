@@ -1,5 +1,21 @@
 const https = require("https");
 
+const MANUELL_INFO = `
+=== KONTAKT ===
+Företag: Alviks Bygg och Entreprenad
+Webbsida: alviksbygg.se
+Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
+
+=== TJÄNSTER ===
+- Badrumsrenovering
+- Köksrenovering
+- Takläggning
+- Om- och tillbyggnad
+- Nyproduktion
+- Isolering
+- Markarbeten
+`;
+
 function fetchUrl(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (res) => {
@@ -23,35 +39,34 @@ function stripHtml(html) {
     .replace(/\s{2,}/g, " ")
     .trim();
 }
-const MANUELL_INFO = `
-Kontakt Solid Bygg och Betong:
-Telefon: [070-888 62 22]
-        
-Email: [E-postadress: info@alviksbygg.se]
-Adress: [Fockvägen 17, 865 31 Alnö]
-`;
+
 const PAGES = [
   "https://alviksbygg.se/",
   "https://alviksbygg.se/byggtjanster/",
-  "https://alviksbygg.se/isolering/",
-  "https://alviksbygg.se/markarbeten/",
-  "https://alviksbygg.se/tips-och-rad/",
-  "https://alviksbygg.se/om-oss/",
-  "https://alviksbygg.se/kontakta-oss/",
   "https://alviksbygg.se/badrumsrenovering/",
   "https://alviksbygg.se/koksrenovering/",
   "https://alviksbygg.se/taklaggning/",
   "https://alviksbygg.se/om-och-tillbyggnad/",
+  "https://alviksbygg.se/isolering/",
+  "https://alviksbygg.se/markarbeten/",
+  "https://alviksbygg.se/om-oss/",
+  "https://alviksbygg.se/kontakta-oss/",
 ];
 
 let cachedInfo = null;
 let cacheTime = null;
+const CACHE_DURATION = 3 * 60 * 60 * 1000;
 
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET");
 
-  if (cachedInfo && cacheTime && (Date.now() - cacheTime < 3 * 60 * 60 * 1000)) {
+  if (req.url && req.url.includes("refresh=true")) {
+    cachedInfo = null;
+    cacheTime = null;
+  }
+
+  if (cachedInfo && cacheTime && (Date.now() - cacheTime < CACHE_DURATION)) {
     return res.json({ content: cachedInfo });
   }
 
@@ -67,6 +82,6 @@ module.exports = async (req, res) => {
     cacheTime = Date.now();
     res.json({ content: cachedInfo });
   } catch(e) {
-    res.json({ content: "" });
+    res.json({ content: MANUELL_INFO });
   }
 };
