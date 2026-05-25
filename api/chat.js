@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   if (!apiKey) return res.status(500).json({ error: "API key missing" });
 
   const { messages, info } = req.body;
-  const system = "Du ar en hjalpsam assistent for Solid Bygg och Betong, ett byggforetag i Sundsvall och Kramfors. Svara kort och professionellt. Svara pa samma sprak som anvandaren skriver pa." +
+  const system = "Du ar en hjalpsam assistent for Alviks Bygg, ett byggforetag i Västernorrland/Gästrikland/Härjedalen/Jämtland. Svara kort och professionellt. Svara pa samma sprak som anvandaren skriver pa." +
     (info ? " Info fran hemsidan: " + info.slice(0, 8000) : "");
 
   const body = JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 500, system, messages });
