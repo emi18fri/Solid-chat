@@ -78,7 +78,6 @@ document.getElementById("send").addEventListener("click",function(){send();});
   msgs=[];
   localStorage.removeItem("solidchat_history");
 }
-}
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
