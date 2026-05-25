@@ -62,7 +62,8 @@ body{font-family:sans-serif}
   </div>
 </div>
 <script>
-var info="",msgs=[],loading=false;
+var info="",loading=false;
+var msgs=JSON.parse(localStorage.getItem("solidchat_history")||"[]");
 document.getElementById("inp").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
 var placeholders=["Skriv din fråga...","Write your question...","Qor su'aashaada...","Schreib deine Frage..."];
 var pi=0;
@@ -75,6 +76,8 @@ document.getElementById("send").addEventListener("click",function(){send();});
   var m=document.getElementById("msgs");
   m.innerHTML='<div class="bot">Hej! Välkommen till Solid Bygg och Betong. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
+  localStorage.removeItem("solidchat_history");
+}
 }
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
@@ -96,6 +99,7 @@ async function send(text){
   var msg=text||inp.value.trim();if(!msg||loading)return;
   inp.value="";loading=true;
   addMsg(msg,"user");msgs.push({role:"user",content:msg});
+  localStorage.setItem("solidchat_history",JSON.stringify(msgs));
   document.getElementById("typing").style.display="flex";
   try{
     var res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
@@ -104,6 +108,7 @@ async function send(text){
     document.getElementById("typing").style.display="none";
     var reply=(data&&data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:"Kunde inte svara.";
     addMsg(reply,"bot");msgs.push({role:"assistant",content:reply});
+    localStorage.setItem("solidchat_history",JSON.stringify(msgs));
   }catch(e){
     document.getElementById("typing").style.display="none";
     addMsg("Något gick fel: "+e.message,"bot");
