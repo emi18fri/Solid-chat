@@ -49,7 +49,7 @@ body{font-family:sans-serif}
 <body>
 <button id="btn" onclick="toggleChat()">💬</button>
 <div id="win" class="hidden">
-  <div id="hdr">
+  <div id="hdr" style="background:#eab32a;">
     <div id="logo"><img src="https://alviksbygg.se/wp-content/uploads/2025/06/Alviks-logga-2-scaled-e1750697210112.png" style="width:36px;height:36px;object-fit:contain;border-radius:50%;background:#fff;padding:2px;" alt="Alviks"/></div>
     <div id="hdr-txt">
       <strong>Alviks Bygg</strong>
@@ -103,7 +103,7 @@ document.getElementById("send").addEventListener("click",function(){send();});
   var m=document.getElementById("msgs");
   m.innerHTML='<div class="bot">Hej! Välkommen till Alviks Bygg. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
-  localStorage.removeItem("Solidchatt_history");
+  localStorage.removeItem("solidchat_history");
 }
   function visaOffertFormular(){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
