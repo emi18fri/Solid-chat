@@ -18,6 +18,7 @@ Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 - Nyproduktion
 - Isolering
 - Markarbeten
+- Snöröjning
 `;
 
 function fetchUrl(url) {
@@ -55,6 +56,11 @@ const PAGES = [
   "https://alviksbygg.se/markarbeten/",
   "https://alviksbygg.se/om-oss/",
   "https://alviksbygg.se/kontakta-oss/",
+  "https://alviksbygg.se/tips-och-rad/",
+  "https://alviksbygg.se/tips-och-rad-/rotavdrag-markarbete-har-du-ratt-till-skatteavdrag/",
+  "https://alviksbygg.se/tips-och-rad-/bygglov-regler-kostnader-och-risker/",
+  "https://alviksbygg.se/tips-och-rad-/snorojning-ansvar-for-vagar-och-trottoarer/",
+  "https://alviksbygg.se/tips-och-rad-/dranering-av-hus-pris-och-fordelar/",
 ];
 
 let cachedInfo = null;
