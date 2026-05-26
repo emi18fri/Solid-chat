@@ -171,9 +171,6 @@ function toggleChat(){
   w.classList.toggle("hidden");
   b.textContent=w.classList.contains("hidden")?"💬":"x";
 }
-  w.classList.toggle("hidden");
-  b.textContent=w.classList.contains("hidden")?"💬":"x";
-}
 function addMsg(text,role){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");d.className=role==="user"?"user":"bot";d.textContent=text;
