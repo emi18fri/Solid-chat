@@ -11,14 +11,14 @@ Webbsida: alviksbygg.se
 Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 
 === TJÄNSTER ===
-- Badrumsrenovering
-- Köksrenovering
-- Takläggning
-- Om- och tillbyggnad
-- Nyproduktion
-- Isolering
-- Markarbeten
-- Snöröjning
+- Badrumsrenovering,
+- Köksrenovering,
+- Takläggning,
+- Om- och tillbyggnad,
+- Nyproduktion,
+- Isolering,
+- Markarbeten,
+- Snöröjning,
 `;
 
 function fetchUrl(url) {
