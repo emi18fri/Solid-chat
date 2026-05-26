@@ -183,6 +183,10 @@ function addMsg(text,role){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");d.className=role==="user"?"user":"bot";d.textContent=text;
   var m=document.getElementById("msgs");m.insertBefore(d,document.getElementById("typing"));
+  var bubblor=m.querySelectorAll(".bot,.user");
+  if(bubblor.length>20){
+    bubblor[0].remove();
+  }
   m.scrollTop=m.scrollHeight;
 }
 async function send(text){
