@@ -3,6 +3,10 @@ const https = require("https");
 const MANUELL_INFO = `
 === KONTAKT ===
 Företag: Alviks Bygg och Entreprenad
+Adress: Fockvägen 17, 865 31 Alnö
+Telefon: 070-888 62 22
+E-post: info@alviksbygg.se
+Öppettider: Mån-Fre 06:30-17:00
 Webbsida: alviksbygg.se
 Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 
