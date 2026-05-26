@@ -77,8 +77,8 @@ body{font-family:sans-serif}
 <script>
 var info="",loading=false;
   var vanligaFragor={
-  "telefon":"Vårt telefonnummer är [070-888 62 22]. Ring oss gärna!",
-  "mail":"Vår e-post är [info@alviksbygg.se]. Vi svarar inom 24 timmar!",
+  "telefon":"Vårt telefonnummer är 070-888 62 22. Ring oss gärna!",
+  "mail":"Vår e-post är info@alviksbygg.se. Vi svarar inom 24 timmar!",
   "öppettider":"Vi har öppet Mån-Fre 06:30-17:00.",
   "pris":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "offert":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
@@ -154,7 +154,7 @@ function skickaBedomning(stjarnor){
   var dag=nu.getDay();
   var timme=nu.getHours();
   var oppet=(dag>=1&&dag<=5&&timme>=6.30&&timme<17);
-  return oppet ? "Vi är öppna just nu! Ringa oss på [070-888 62 22]." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
+  return oppet ? "Vi är öppna just nu! Ringa oss på 070-888 62 22." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
 }
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
