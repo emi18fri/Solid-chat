@@ -103,6 +103,7 @@ document.getElementById("send").addEventListener("click",function(){send();});
   var m=document.getElementById("msgs");
   m.innerHTML='<div class="bot">Hej! Välkommen till Alviks Bygg. Vad kan vi hjälpa dig med?</div>';
   msgs=[];
+  bedomningVisad=false;
   localStorage.removeItem("solidchat_history");
 }
   function visaOffertFormular(){
@@ -160,11 +161,16 @@ fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d)
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
 }).catch(function(){document.getElementById("status").style.display="none";});
+var bedomningVisad=false;
 function toggleChat(){
   var w=document.getElementById("win"),b=document.getElementById("btn");
-  if(!w.classList.contains("hidden")&&msgs.length>0){
+  if(!w.classList.contains("hidden")&&msgs.length>0&&!bedomningVisad){
+    bedomningVisad=true;
     visaBedomning();
   }
+  w.classList.toggle("hidden");
+  b.textContent=w.classList.contains("hidden")?"💬":"x";
+}
   w.classList.toggle("hidden");
   b.textContent=w.classList.contains("hidden")?"💬":"x";
 }
