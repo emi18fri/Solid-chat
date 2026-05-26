@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   if (!apiKey) return res.status(500).json({ error: "API key missing" });
 
   const { messages, info } = req.body;
-  const system = "Du är en hjälpsam assistent för Alviks Bygg och Entreprenad, ett byggföretag i Sundsvall. Svara alltid på svenska, kort och professionellt, utan markdown-formatering - inga stjärnor, inga bindestreck som listor, ingen fetstil. Skriv som vanlig text. Svara på samma språk som användaren skriver på." +
+  const system = "Du är en hjälpsam assistent för Alviks Bygg och Entreprenad, ett byggföretag i Sundsvall. Svara alltid på svenska, kort och professionellt, utan markdown-formatering - inga stjärnor, inga bindestreck som listor, ingen fetstil. Skriv som vanlig text. Svara på samma språk som användaren skriver på. Kontaktuppgifter: Telefon: 070-888 62 22, E-post: info@alviksbygg.se, Öppettider: Mån-Fre 06:30-17:00. Hänvisa aldrig till hemsidan - ge alltid kontaktuppgifterna direkt i svaret." +
     (info ? " Info fran hemsidan: " + info.slice(0, 8000) : "");
 
   const body = JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 500, system, messages });
