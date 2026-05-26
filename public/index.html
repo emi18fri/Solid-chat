@@ -100,9 +100,16 @@ setInterval(function(){
   document.getElementById("inp").placeholder=placeholders[pi];
 },2000);
 document.getElementById("send").addEventListener("click",function(){send();});
-  function rensaChatt(){
+ function rensaChatt(){
   var m=document.getElementById("msgs");
-  m.innerHTML='<div class="bot">Hej! Välkommen till Alviks Bygg. Vad kan vi hjälpa dig med?</div>';
+  m.innerHTML='<div class="bot" id="welcome-msg">Hej! Välkommen till Alviks Bygg. '+visaOppettider()+' Vad kan vi hjälpa dig med?</div>'+
+    '<div id="qbtns">'+
+    '<button class="qbtn" onclick="send(\'Vilka tjänster erbjuder ni?\')">🔨 Tjänster ›</button>'+
+    '<button class="qbtn" onclick="send(\'Hur kontaktar jag er?\')">📞 Kontakt ›</button>'+
+    '<button class="qbtn" onclick="send(\'Var är ni verksamma?\')">📍 Orter ›</button>'+
+    '<button class="qbtn" onclick="visaOffertFormular()" style="background:#eab32a;color:#fff;border:none;">📋 Begär offert</button>'+
+    '</div>'+
+    '<div id="typing"><span></span><span></span><span></span></div>';
   msgs=[];
   bedomningVisad=false;
   localStorage.removeItem("solidchat_history");
