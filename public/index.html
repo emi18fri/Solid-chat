@@ -77,7 +77,7 @@ body{font-family:sans-serif}
 <script>
 var info="",loading=false;
 var bedomningVisad=false;
-  var vanligaFragor={
+var vanligaFragor={
   "adress":"Ni hittar oss på Fockvägen 17, 865 31 Alnö.",
   "telefon":"Vårt telefonnummer är 070-888 62 22. Ring oss gärna!",
   "mail":"Vår e-post är info@alviksbygg.se. Vi svarar inom 24 timmar!",
@@ -85,23 +85,34 @@ var bedomningVisad=false;
   "pris":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "offert":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "sundsvall":"Ja, vi är verksamma i Sundsvall!",
-  "Gästrikland":"Ja, vi är verksamma i Gästrikland!",
-  "Jämtland/Härjedalen":"Ja, vi är verksamma i Jämtland/Härjedalen!",
-  "Västernorrland":"Ja, vi är verksamma i Västernorrland",  
-  "betong":"Vi utför alla typer av betongarbeten. Tryck på 'Tjänster' för mer info!",
+  "gästrikland":"Ja, vi är verksamma i Gästrikland!",
+  "jämtland":"Ja, vi är verksamma i Jämtland/Härjedalen!",
+  "västernorrland":"Ja, vi är verksamma i Västernorrland!",
+  "betong":"Vi utför alla typer av betongarbeten. Kontakta oss för offert!",
   "dränering":"Vi utför dräneringsarbeten. Kontakta oss för offert!",
   "stenläggning":"Vi lägger sten och plattor. Kontakta oss för offert!",
 };
 var msgs=JSON.parse(localStorage.getItem("solidchat_history")||"[]");
+ 
 document.getElementById("inp").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
+document.getElementById("send").addEventListener("click",function(){send();});
+ 
 var placeholders=["Skriv din fråga...","Write your question...","Qor su'aashaada...","Schreib deine Frage..."];
 var pi=0;
 setInterval(function(){
   pi=(pi+1)%placeholders.length;
   document.getElementById("inp").placeholder=placeholders[pi];
 },2000);
-document.getElementById("send").addEventListener("click",function(){send();});
- function rensaChatt(){
+ 
+function visaOppettider(){
+  var nu=new Date();
+  var dag=nu.getDay();
+  var timme=nu.getHours();
+  var oppet=(dag>=1&&dag<=5&&timme>=6&&timme<17);
+  return oppet ? "Vi är öppna just nu! Ring oss på 070-888 62 22." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
+}
+ 
+function rensaChatt(){
   var m=document.getElementById("msgs");
   m.innerHTML='<div class="bot" id="welcome-msg">Hej! Välkommen till Alviks Bygg. '+visaOppettider()+' Vad kan vi hjälpa dig med?</div>'+
     '<div id="qbtns">'+
@@ -115,7 +126,8 @@ document.getElementById("send").addEventListener("click",function(){send();});
   bedomningVisad=false;
   localStorage.removeItem("solidchat_history");
 }
-  function visaOffertFormular(){
+ 
+function visaOffertFormular(){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");
   d.className="bot";
@@ -125,11 +137,12 @@ document.getElementById("send").addEventListener("click",function(){send();});
     '<input id="of-tel" placeholder="Telefon" style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;"><br>'+
     '<input id="of-mail" placeholder="E-post" style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;"><br>'+
     '<textarea id="of-msg" placeholder="Beskriv ditt projekt..." style="width:100%;margin-bottom:6px;padding:6px;border:1px solid #ddd;border-radius:6px;height:80px;"></textarea><br>'+
-    '<button onclick="skickaOffert()" style="background:#9e9e9e;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;width:100%;">Skicka offertförfrågan</button>';
+    '<button onclick="skickaOffert()" style="background:#eab32a;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;width:100%;">Skicka offertförfrågan</button>';
   var m=document.getElementById("msgs");
   m.insertBefore(d,document.getElementById("typing"));
   m.scrollTop=m.scrollHeight;
 }
+ 
 function skickaOffert(){
   var namn=document.getElementById("of-namn").value;
   var tel=document.getElementById("of-tel").value;
@@ -138,7 +151,8 @@ function skickaOffert(){
   if(!namn||!tel||!msg){addMsg("Fyll i namn, telefon och projektbeskrivning!","bot");return;}
   send("Offertförfrågan från "+namn+" ("+tel+", "+mail+"): "+msg);
 }
-  function visaBedomning(){
+ 
+function visaBedomning(){
   var d=document.createElement("div");
   d.className="bot";
   d.style.width="100%";
@@ -154,22 +168,17 @@ function skickaOffert(){
   m.insertBefore(d,document.getElementById("typing"));
   m.scrollTop=m.scrollHeight;
 }
-
+ 
 function skickaBedomning(stjarnor){
   var text="★".repeat(stjarnor)+"☆".repeat(5-stjarnor);
   addMsg("Tack för din bedömning: "+text,"bot");
 }
-  function visaOppettider(){
-  var nu=new Date();
-  var dag=nu.getDay();
-  var timme=nu.getHours();
-  var oppet=(dag>=1&&dag<=5&&timme>=6.30&&timme<17);
-  return oppet ? "Vi är öppna just nu! Ringa oss på 070-888 62 22." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
-}
+ 
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
 }).catch(function(){document.getElementById("status").style.display="none";});
+ 
 function toggleChat(){
   var w=document.getElementById("win"),b=document.getElementById("btn");
   if(!w.classList.contains("hidden")&&msgs.length>0&&!bedomningVisad){
@@ -179,16 +188,16 @@ function toggleChat(){
   w.classList.toggle("hidden");
   b.textContent=w.classList.contains("hidden")?"💬":"x";
 }
+ 
 function addMsg(text,role){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");d.className=role==="user"?"user":"bot";d.textContent=text;
   var m=document.getElementById("msgs");m.insertBefore(d,document.getElementById("typing"));
   var bubblor=m.querySelectorAll(".bot,.user");
-  if(bubblor.length>20){
-    bubblor[0].remove();
-  }
+  if(bubblor.length>20) bubblor[0].remove();
   m.scrollTop=m.scrollHeight;
 }
+ 
 async function send(text){
   var inp=document.getElementById("inp");
   var msg=text||inp.value.trim();if(!msg||loading)return;
@@ -207,14 +216,14 @@ async function send(text){
   if(msgs.length>20) msgs=msgs.slice(-20);
   localStorage.setItem("solidchat_history",JSON.stringify(msgs));
   document.getElementById("typing").style.display="flex";
-
+ 
   var timeout=setTimeout(function(){
     document.getElementById("typing").style.display="none";
     addMsg("Det tog för lång tid att svara. Försök igen!","bot");
     loading=false;
     document.getElementById("send").disabled=false;
   },10000);
-
+ 
   try{
     var res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({messages:msgs,info:info})});
@@ -232,26 +241,8 @@ async function send(text){
   loading=false;
   document.getElementById("send").disabled=false;
 }
-}
-  inp.value="";loading=true;
-  addMsg(msg,"user");msgs.push({role:"user",content:msg});
-  localStorage.setItem("solidchat_history",JSON.stringify(msgs));
-  document.getElementById("typing").style.display="flex";
-  try{
-    var res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({messages:msgs,info:info})});
-    var data=await res.json();
-    document.getElementById("typing").style.display="none";
-    var reply=(data&&data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:"Kunde inte svara.";
-    addMsg(reply,"bot");msgs.push({role:"assistant",content:reply});
-    localStorage.setItem("solidchat_history",JSON.stringify(msgs));
-  }catch(e){
-    document.getElementById("typing").style.display="none";
-    addMsg("Något gick fel: "+e.message,"bot");
-  }
-  loading=false;
-}
-document.getElementById("welcome-msg").textContent="Hej! Välkommen till AlviksBygg. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
+ 
+document.getElementById("welcome-msg").textContent="Hej! Välkommen till Alviks Bygg. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
 </script>
 </body>
 </html>
