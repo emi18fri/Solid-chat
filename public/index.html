@@ -161,6 +161,27 @@ function skickaBedomning(stjarnor){
   addMsg("Tack för din bedömning: "+text,"bot");
 }
 
+  function visaFrageforslag(svar){
+  var forslag=[];
+  if(svar.includes("dränering")||svar.includes("mark")) forslag=["Vad kostar dränering?","Berättigar dränering till ROT-avdrag?","Hur lång tid tar det?"];
+  else if(svar.includes("badrum")) forslag=["Vad kostar en badrumsrenovering?","Kan jag få ROT-avdrag?","Hur lång tid tar det?"];
+  else if(svar.includes("kök")) forslag=["Vad kostar en köksrenovering?","Kan jag få ROT-avdrag?","Begär offert"];
+  else if(svar.includes("tak")) forslag=["Vad kostar takläggning?","Vilka takmaterial erbjuder ni?","Begär offert"];
+  else if(svar.includes("bygglov")) forslag=["Vad kostar bygglov?","Hjälper ni med ansökan?","Begär offert"];
+  else if(svar.includes("rot")||svar.includes("avdrag")) forslag=["Vilka tjänster ger ROT-avdrag?","Hur ansöker man?","Begär offert"];
+  else forslag=["Begär offert","Vilka tjänster erbjuder ni?","Hur kontaktar jag er?"];
+
+  if(forslag.length===0) return;
+  var div=document.createElement("div");
+  div.style.cssText="display:flex;flex-direction:column;gap:4px;margin-top:4px;";
+  div.innerHTML=forslag.map(f=>
+    '<button onclick="send(\''+f+'\')" style="background:#fffbea;border:1px solid #f0e0a0;border-radius:8px;padding:6px 10px;font-size:0.78rem;color:#333;cursor:pointer;text-align:left;">'+f+'</button>'
+  ).join("");
+  var m=document.getElementById("msgs");
+  m.insertBefore(div,document.getElementById("typing"));
+  m.scrollTop=m.scrollHeight;
+}
+
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
@@ -223,6 +244,7 @@ async function send(text){
     document.getElementById("typing").style.display="none";
     var reply=(data&&data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:"Kunde inte svara.";
     addMsg(reply,"bot");msgs.push({role:"assistant",content:reply});
+visaFrageforslag(reply.toLowerCase());
     localStorage.setItem("solidchat_history",JSON.stringify(msgs));
   }catch(e){
     clearTimeout(timeout);
