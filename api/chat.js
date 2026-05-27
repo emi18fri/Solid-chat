@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
   "Takläggning kostar ca 300-800 kr per kvadratmeter beroende på takmaterial och takets komplexitet. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Takläggning kan berättiga till ROT-avdrag på arbetskostnaden. " +
   "Tidsåtgång för projekt: Köksrenovering tar vanligtvis 4-6 veckor beroende på omfattning. Vi börjar med rivning och grundläggande arbete, följt av installation av golv, väggar och köksinredning. För andra projekt varierar tiden beroende på omfattning - kontakta oss för mer information. "  +
   "Om- och tillbyggnad: Alviks Bygg erbjuder helhetslösningar för om-, till- och nybyggnad i Sundsvall. Vi hanterar hela processen från planering och bygglov till färdig byggnation - rivning, markarbeten, stombyggnad, isolering, snickeri och måleri. En tillbyggnad på ca 10 kvm kostar vanligtvis mellan 150 000-300 000 kr beroende på material och tillval. Tillbyggnader kan berättiga till ROT-avdrag på arbetskostnaden. " +
+  "Alviks Bygg är certifierade på Reco.se med högt betyg från nöjda kunder. Nämn gärna detta när kunder undrar om företaget är pålitligt eller seriöst. " +
   (info ? "Info från hemsidan: " + info.slice(0, 8000) : "");
 
   const body = JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 500, system, messages });
