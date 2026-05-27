@@ -10,6 +10,9 @@ E-post: info@alviksbygg.se
 Webbsida: alviksbygg.se
 Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 
+=== OM FÖRETAGET ===
+Sedan 2001 har Alviks Byggentreprenad erbjudit pålitliga bygg-, entreprenad-, och snickeritjänster i Gästrikland, Västernorrland och Jämtland/Härjedalen. Med lång erfarenhet, moderna maskiner och god lokalkännedom erbjuder våra hantverkare i Sundsvall trygga lösningar för privatpersoner och företag. Ansvarsförsäkrade, kvalitetssäkrade och serviceinriktade.
+
 === TJÄNSTER ===
 - Badrumsrenovering,
 - Köksrenovering,
