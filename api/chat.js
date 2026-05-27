@@ -22,6 +22,8 @@ module.exports = async (req, res) => {
   "Du ska svara på frågor om ROT-avdrag - det är en viktig del av Alviks Byggs tjänster. ROT-avdraget ger 30% avdrag på arbetskostnaden upp till 50 000 kr per person och år. Dränering, markarbeten och renoveringar kan berättiga till ROT-avdrag. " +
   "Du ska svara på frågor om bygglov eftersom Alviks Bygg hjälper kunder med byggprojekt som kräver bygglov. Bygglov krävs ofta för nybyggnation, tillbyggnader och vissa renoveringar. " +
   "Priser för bygglov: Nybygge kostar ca 20 000-50 000 kr, tillbyggnad ca 5 000-20 000 kr, Attefallshus ca 2 000-7 000 kr (bygganmälan). Utöver bygglovsavgiften kan det tillkomma kostnader för kontrollplan och nybyggnadskarta. Exakta priser bestäms av kommunen. " +
+  "Du ska svara på frågor om takläggning eftersom Alviks Bygg erbjuder detta. Takläggning kostar ca 1500-3000 kr per kvadratmeter beroende på takmaterial och takets komplexitet. " +
+  "Takläggning kostar ca 300-800 kr per kvadratmeter beroende på takmaterial och takets komplexitet. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Takläggning kan berättiga till ROT-avdrag på arbetskostnaden. " +
   (info ? "Info från hemsidan: " + info.slice(0, 8000) : "");
 
   const body = JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 500, system, messages });
