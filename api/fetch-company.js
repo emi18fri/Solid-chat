@@ -10,6 +10,10 @@ E-post: info@alviksbygg.se
 Webbsida: alviksbygg.se
 Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 
+=== UNGEFÄRLIGA PRISER ===
+Dränering: Generellt ligger kostnaden för att dränera runt ett vanligt hus på cirka 1 500–3 000 kronor per löpmeter. Som exempel skulle dräneringen av ett hus med en omkrets på 40 meter kosta mellan 60 000 och 120 000 kronor. Att dränera en källare kan kosta lite mer. Det beror på att arbetet kan vara mer komplicerat och kräva ytterligare åtgärder för att skydda väggar och golv från fukt.
+Schaktning: Schaktning i Sundsvall kan variera i pris beroende på storleken av projektet, hur djupt som ska grävas och vilken utrustning som krävs. Generellt kostar schaktning mellan 800 och 1 500 kronor per timme, inklusive maskiner och förare. För större projekt kan vi erbjuda ett fast pris baserat på en genomgång av arbetets omfattning.
+
 === OM FÖRETAGET ===
 Sedan 2001 har Alviks Byggentreprenad erbjudit pålitliga bygg-, entreprenad-, och snickeritjänster i Gästrikland, Västernorrland och Jämtland/Härjedalen. Med lång erfarenhet, över 100 genomförda nybyggnationer, moderna maskiner och god lokalkännedom erbjuder våra hantverkare i Sundsvall trygga lösningar för privatpersoner och företag. Ansvarsförsäkrade, kvalitetssäkrade och serviceinriktade.
 
