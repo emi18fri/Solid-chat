@@ -31,32 +31,23 @@ body{font-family:sans-serif}
 #inp{flex:1;border:1px solid #ddd;border-radius:20px;padding:.55rem 1rem;font-size:.85rem;outline:none;background:#f5f5f5;color:#333}
 #send{width:38px;height:38px;border-radius:50%;background:#eab32a;border:none;color:#fff;font-size:1rem;cursor:pointer;flex-shrink:0}
 #status{font-size:.72rem;color:#999;padding:.3rem 1rem;background:#f8f8f8;text-align:center}
-  @media (max-width: 480px) {
-  #win {
-    width: calc(100vw - 24px) !important;
-    right: 12px !important;
-    left: 12px !important;
-    bottom: 80px !important;
-    max-height: 70vh !important;
-  }
-  #btn {
-    bottom: 16px !important;
-    right: 16px !important;
-  }
+@media (max-width: 480px) {
+  #win{width:calc(100vw - 24px)!important;right:12px!important;left:12px!important;bottom:80px!important;max-height:70vh!important}
+  #btn{bottom:16px!important;right:16px!important}
 }
 </style>
 </head>
 <body>
 <button id="btn" onclick="toggleChat()">💬</button>
 <div id="win" class="hidden">
-  <div id="hdr" style="background:#eab32a;">
+  <div id="hdr">
     <div id="logo"><img src="https://alviksbygg.se/wp-content/uploads/2025/06/Alviks-logga-2-scaled-e1750697210112.png" style="width:36px;height:36px;object-fit:contain;border-radius:50%;background:#000;padding:2px;" alt="Alviks"/></div>
     <div id="hdr-txt">
       <strong>Alviks Bygg</strong>
       <span>Hur kan vi hjälpa dig?</span>
     </div>
     <button id="close" onclick="toggleChat()">x</button>
-<button onclick="rensaChatt()" style="background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:28px;height:28px;color:#fff;font-size:0.7rem;cursor:pointer;">🗑️</button>
+    <button onclick="rensaChatt()" style="background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:28px;height:28px;color:#fff;font-size:0.7rem;cursor:pointer;">🗑️</button>
   </div>
   <div id="status">Laddar information...</div>
   <div id="msgs">
@@ -86,21 +77,20 @@ var vanligaFragor={
   "gästrikland":"Ja, vi är verksamma i Gästrikland!",
   "jämtland":"Ja, vi är verksamma i Jämtland/Härjedalen!",
   "västernorrland":"Ja, vi är verksamma i Västernorrland!",
-  "betong":"Vi utför alla typer av betongarbeten. Kontakta oss för offert!",
   "stenläggning":"Vi lägger sten och plattor. Kontakta oss för offert!",
 };
 var msgs=JSON.parse(localStorage.getItem("solidchat_history")||"[]");
- 
+
 document.getElementById("inp").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
 document.getElementById("send").addEventListener("click",function(){send();});
- 
+
 var placeholders=["Skriv din fråga...","Write your question...","Qor su'aashaada...","Schreib deine Frage..."];
 var pi=0;
 setInterval(function(){
   pi=(pi+1)%placeholders.length;
   document.getElementById("inp").placeholder=placeholders[pi];
 },2000);
- 
+
 function visaOppettider(){
   var nu=new Date();
   var dag=nu.getDay();
@@ -108,7 +98,7 @@ function visaOppettider(){
   var oppet=(dag>=1&&dag<=5&&timme>=6&&timme<17);
   return oppet ? "Vi är öppna just nu! Ring oss på 070-888 62 22." : "Vi är stängda just nu. Öppettider: Mån-Fre 06:30-17:00.";
 }
- 
+
 function rensaChatt(){
   var m=document.getElementById("msgs");
   m.innerHTML='<div class="bot" id="welcome-msg">Hej! Välkommen till Alviks Bygg. '+visaOppettider()+' Vad kan vi hjälpa dig med?</div>'+
@@ -123,7 +113,7 @@ function rensaChatt(){
   bedomningVisad=false;
   localStorage.removeItem("solidchat_history");
 }
- 
+
 function visaOffertFormular(){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");
@@ -139,7 +129,7 @@ function visaOffertFormular(){
   m.insertBefore(d,document.getElementById("typing"));
   m.scrollTop=m.scrollHeight;
 }
- 
+
 function skickaOffert(){
   var namn=document.getElementById("of-namn").value;
   var tel=document.getElementById("of-tel").value;
@@ -148,7 +138,7 @@ function skickaOffert(){
   if(!namn||!tel||!msg){addMsg("Fyll i namn, telefon och projektbeskrivning!","bot");return;}
   send("Offertförfrågan från "+namn+" ("+tel+", "+mail+"): "+msg);
 }
- 
+
 function visaBedomning(){
   var d=document.createElement("div");
   d.className="bot";
@@ -165,17 +155,17 @@ function visaBedomning(){
   m.insertBefore(d,document.getElementById("typing"));
   m.scrollTop=m.scrollHeight;
 }
- 
+
 function skickaBedomning(stjarnor){
   var text="★".repeat(stjarnor)+"☆".repeat(5-stjarnor);
   addMsg("Tack för din bedömning: "+text,"bot");
 }
- 
+
 fetch("/api/fetch-company").then(function(r){return r.json();}).then(function(d){
   if(d.content){info=d.content;document.getElementById("status").textContent="Redo att hjälpa dig!";}
   setTimeout(function(){document.getElementById("status").style.display="none";},3000);
 }).catch(function(){document.getElementById("status").style.display="none";});
- 
+
 function toggleChat(){
   var w=document.getElementById("win"),b=document.getElementById("btn");
   if(!w.classList.contains("hidden")&&msgs.length>0&&!bedomningVisad){
@@ -185,7 +175,7 @@ function toggleChat(){
   w.classList.toggle("hidden");
   b.textContent=w.classList.contains("hidden")?"💬":"x";
 }
- 
+
 function addMsg(text,role){
   var qb=document.getElementById("qbtns");if(qb)qb.remove();
   var d=document.createElement("div");d.className=role==="user"?"user":"bot";d.textContent=text;
@@ -194,7 +184,7 @@ function addMsg(text,role){
   if(bubblor.length>20) bubblor[0].remove();
   m.scrollTop=m.scrollHeight;
 }
- 
+
 async function send(text){
   var inp=document.getElementById("inp");
   var msg=text||inp.value.trim();if(!msg||loading)return;
@@ -241,39 +231,8 @@ async function send(text){
   }
   loading=false;
   document.getElementById("send").disabled=false;
-  }
-  inp.value="";loading=true;
-  document.getElementById("send").disabled=true;
-  addMsg(msg,"user");msgs.push({role:"user",content:msg});
-  if(msgs.length>20) msgs=msgs.slice(-20);
-  localStorage.setItem("solidchat_history",JSON.stringify(msgs));
-  document.getElementById("typing").style.display="flex";
- 
-  var timeout=setTimeout(function(){
-    document.getElementById("typing").style.display="none";
-    addMsg("Det tog för lång tid att svara. Försök igen!","bot");
-    loading=false;
-    document.getElementById("send").disabled=false;
-  },10000);
- 
-  try{
-    var res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({messages:msgs,info:info})});
-    var data=await res.json();
-    clearTimeout(timeout);
-    document.getElementById("typing").style.display="none";
-    var reply=(data&&data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:"Kunde inte svara.";
-    addMsg(reply,"bot");msgs.push({role:"assistant",content:reply});
-    localStorage.setItem("solidchat_history",JSON.stringify(msgs));
-  }catch(e){
-    clearTimeout(timeout);
-    document.getElementById("typing").style.display="none";
-    addMsg("Något gick fel: "+e.message,"bot");
-  }
-  loading=false;
-  document.getElementById("send").disabled=false;
 }
- 
+
 document.getElementById("welcome-msg").textContent="Hej! Välkommen till Alviks Bygg. "+visaOppettider()+" Vad kan vi hjälpa dig med?";
 </script>
 </body>
