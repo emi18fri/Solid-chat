@@ -82,7 +82,6 @@ var vanligaFragor={
   "telefon":"Vårt telefonnummer är 070-888 62 22. Ring oss gärna!",
   "mail":"Vår e-post är info@alviksbygg.se. Vi svarar inom 24 timmar!",
   "öppettider":"Vi har öppet Mån-Fre 06:30-17:00.",
-  "offert":"Vi erbjuder kostnadsfria offertförfrågningar. Tryck på 'Begär offert' så återkommer vi!",
   "sundsvall":"Ja, vi är verksamma i Sundsvall!",
   "gästrikland":"Ja, vi är verksamma i Gästrikland!",
   "jämtland":"Ja, vi är verksamma i Jämtland/Härjedalen!",
@@ -200,6 +199,12 @@ async function send(text){
   var inp=document.getElementById("inp");
   var msg=text||inp.value.trim();if(!msg||loading)return;
   var msgLower=msg.toLowerCase();
+  if(msgLower.includes("offert")){
+    inp.value="";
+    addMsg(msg,"user");
+    visaOffertFormular();
+    return;
+  }
   for(var key in vanligaFragor){
     if(msgLower.includes(key)){
       inp.value="";
@@ -207,6 +212,35 @@ async function send(text){
       addMsg(vanligaFragor[key],"bot");
       return;
     }
+  }
+  inp.value="";loading=true;
+  document.getElementById("send").disabled=true;
+  addMsg(msg,"user");msgs.push({role:"user",content:msg});
+  if(msgs.length>20) msgs=msgs.slice(-20);
+  localStorage.setItem("solidchat_history",JSON.stringify(msgs));
+  document.getElementById("typing").style.display="flex";
+  var timeout=setTimeout(function(){
+    document.getElementById("typing").style.display="none";
+    addMsg("Det tog för lång tid att svara. Försök igen!","bot");
+    loading=false;
+    document.getElementById("send").disabled=false;
+  },10000);
+  try{
+    var res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({messages:msgs,info:info})});
+    var data=await res.json();
+    clearTimeout(timeout);
+    document.getElementById("typing").style.display="none";
+    var reply=(data&&data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:"Kunde inte svara.";
+    addMsg(reply,"bot");msgs.push({role:"assistant",content:reply});
+    localStorage.setItem("solidchat_history",JSON.stringify(msgs));
+  }catch(e){
+    clearTimeout(timeout);
+    document.getElementById("typing").style.display="none";
+    addMsg("Något gick fel: "+e.message,"bot");
+  }
+  loading=false;
+  document.getElementById("send").disabled=false;
   }
   inp.value="";loading=true;
   document.getElementById("send").disabled=true;
