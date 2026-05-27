@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   "Priser för bygglov: Nybygge kostar ca 20 000-50 000 kr, tillbyggnad ca 5 000-20 000 kr, Attefallshus ca 2 000-7 000 kr (bygganmälan). Utöver bygglovsavgiften kan det tillkomma kostnader för kontrollplan och nybyggnadskarta. Exakta priser bestäms av kommunen. " +
   "Du ska svara på frågor om takläggning eftersom Alviks Bygg erbjuder detta. Takläggning kostar ca 1500-3000 kr per kvadratmeter beroende på takmaterial och takets komplexitet. " +
   "Takläggning kostar ca 300-800 kr per kvadratmeter beroende på takmaterial och takets komplexitet. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Vanliga takmaterial är betongpannor, tegelpannor, plåt och shingel. Takläggning kan berättiga till ROT-avdrag på arbetskostnaden. " +
-  "Tidsåtgång för projekt: Köksrenovering tar vanligtvis 4-6 veckor beroende på omfattning. Vi börjar med rivning och grundläggande arbete, följt av installation av golv, väggar och köksinredning. Badrumsrenovering tar vanligtvis 2-4 veckor. Takläggning tar 1-5 dagar beroende på takets storlek. " +
+  "Tidsåtgång för projekt: Köksrenovering tar vanligtvis 4-6 veckor beroende på omfattning. Vi börjar med rivning och grundläggande arbete, följt av installation av golv, väggar och köksinredning. För andra projekt varierar tiden beroende på omfattning - kontakta oss för mer information. "  +
   (info ? "Info från hemsidan: " + info.slice(0, 8000) : "");
 
   const body = JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 500, system, messages });
