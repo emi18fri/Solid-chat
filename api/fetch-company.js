@@ -10,6 +10,9 @@ E-post: info@alviksbygg.se
 Webbsida: alviksbygg.se
 Verksamma i: Sundsvall, Gästrikland, Västernorrland och Jämtland/Härjedalen
 
+=== CERTIFIERINGAR OCH OMDÖMEN ===
+Alviks Bygg är certifierade på Reco.se med högt betyg från nöjda kunder. Reco är Sveriges ledande rekommendationstjänst för hantverkare och företag. Se alla recensioner på reco.se/alviks-bygg
+
 === KUNDRECENSIONER FRÅN RECO ===
 Alviks Bygg har högt betyg på Reco.se. Här är några recensioner:
 
